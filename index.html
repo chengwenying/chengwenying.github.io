@@ -264,19 +264,9 @@
         <h2 id="下载yilia主题"><a href="#下载yilia主题" class="headerlink" title="下载yilia主题"></a>下载yilia主题</h2><p>在Git中输入  git clone <a target="_blank" rel="noopener" href="http://github.com/litten/hexo-theme-yilia.git">http://github.com/litten/hexo-theme-yilia.git</a>   themes/yilia</p>
 <p>​                                                          （克隆地址）                                  （克隆之后的本地位置）</p>
 <p>找到Blog文件中的  _config.yml 文件，使用编译器打开，将theme改为yilia，图中为改好后的内容</p>
-<p>&lt;–more–&gt;</p>
-<p><img src="/images/yilia/image-20220327171335733.png" alt="image-20220327171335733"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo c</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>这样就实现了主题的更改。</p>
-<h2 id="插入图片并显示"><a href="#插入图片并显示" class="headerlink" title="插入图片并显示"></a>插入图片并显示</h2><p>编辑和发布博客之后，会发现在typora里面无法显示图片，下面提供一种相对简单的解决方案。</p>
-<p>在存放博客文件夹_posts的地方新建一个images的文件夹</p>
-<p>然后打开typora的文件-&gt;偏好设置，进行设置：</p>
-<p><img src="/images/yilia/image-20220327172541382.png" alt="image-20220327172541382"></p>
-<p>这样的话所有的博客中的图片都将会保存到/source/images/该博客md文件名/图片名称 </p>
-<p>但是仅仅这样设置还不够，这样设置在typora中倒是能看图片了，但是使用的却是相对于当前md文件的相对路径，可是如果启动hexo，是要用服务器访问的，而服务器显然无法根据这个相对路径正确访问到图片，因此还需要在typora中进行进一步设置。</p>
-<p>在typora菜单栏点击 格式-&gt;图像-&gt;设置图片根目录，将hexo/source作为其根目录即可。</p>
-<p>参考链接： <a target="_blank" rel="noopener" href="https://yinyoupoet.github.io/2019/09/03/hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/">https://yinyoupoet.github.io/2019/09/03/hexo博客中插入图片/</a></p>
-
+        
+          <a class="article-more-a" href="/2022/03/27/yilia/#more">more >></a>
+        
       
 
       
@@ -336,7 +326,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/04/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Ayilia%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/">hexo博客搭建及yilia主题使用(1)</a>
+      <a class="article-title" href="/2021/02/04/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Ayilia%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/">hexo博客搭建</a>
     </h1>
   
 
@@ -350,62 +340,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="git-node-js-hexo博客搭建"><a href="#git-node-js-hexo博客搭建" class="headerlink" title="git+node.js+hexo博客搭建"></a>git+node.js+hexo博客搭建</h1><h2 id="git安装"><a href="#git安装" class="headerlink" title="git安装"></a>git安装</h2><p>windows：到git官网上下载,<a target="_blank" rel="noopener" href="https://gitforwindows.org/">Download git</a>,下载后会有一个Git Bash的命令行工具，以后就用这个工具来使用git。windows在git安装完后，就可以直接使用git bash来敲命令行.</p>
-<p>linux：输入代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
-<p>安装好后，可以用<code>git --version</code> 来查看一下版本</p>
-<h2 id="node-js安装"><a href="#node-js安装" class="headerlink" title="node.js安装"></a>node.js安装</h2><p>windows：<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">nodejs</a>选择LTS版本就行了。</p>
-<p>linux：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nodejs</span><br><span class="line">sudo apt-get install npm</span><br></pre></td></tr></table></figure>
-<p>安装完成后打开命令行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
-<h2 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h2><p>前面git和nodejs安装好后，就可以安装hexo了，你可以先创建一个文件夹blog，然后<code>cd</code>到这个文件夹下（或者在这个文件夹下直接右键git bash打开）。</p>
-<p>输入命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<p>用hexo -v查看版本，至此就安装完毕。</p>
-<h2 id="初始化hexo"><a href="#初始化hexo" class="headerlink" title="初始化hexo"></a>初始化hexo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog_name &#x2F;&#x2F;blog名字自己指定</span><br><span class="line">cd blog_name </span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<p>新建完成后，指定文件夹目录下有：</p>
-<ul>
-<li>node_modules: 依赖包</li>
-<li>public：存放生成的页面</li>
-<li>scaffolds：生成文章的一些模板</li>
-<li>source：用来存放你的文章</li>
-<li>themes：主题</li>
-<li>** _config.yml: 博客的配置文件**</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-<p>打开hexo的服务，在浏览器输入localhost:4000就可以看到生成的博客了。使用ctrl+c可以把服务关掉。</p>
-<h2 id="github创建个人仓库"><a href="#github创建个人仓库" class="headerlink" title="github创建个人仓库"></a>github创建个人仓库</h2><p>首先，注册一个github账户，在github.com中看到有一个New repository，新建仓库。</p>
-<p><img src="C:\Users\cheng\AppData\Roaming\Typora\typora-user-images\image-20220327130706220.png" alt="image-20220327130706220"></p>
-<p>然后创建一个和用户名相同的仓库，后面加.github.io，只有这样，将来要部署到GitHub page的时候，才会被识别，也就是xxxx.github.io，其中xxx就是你注册GitHub的用户名。（如我此处就是chengwenying.github.io）</p>
-<p><img src="C:\Users\cheng\AppData\Roaming\Typora\typora-user-images\image-20220327131258547.png" alt="image-20220327131258547"></p>
-<h2 id="生成SSH添加到github"><a href="#生成SSH添加到github" class="headerlink" title="生成SSH添加到github"></a>生成SSH添加到github</h2><p>回到git bush</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;  &#x2F;&#x2F;youname对应github名</span><br><span class="line">git config --global user.email &quot;youremail&quot;  &#x2F;&#x2F;youremail对应邮箱名</span><br></pre></td></tr></table></figure>
-<p>可以用下面两条检查输入是否正确：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
-<p>然后创建SSH，一路回车</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
-<p>这时候已经生成了.ssh的文件夹，在电脑中找到文件夹。</p>
-<p>ssh，简单来讲，就是一个秘钥，其中，id_rsa是你这台电脑的私人秘钥，不能给别人看的，id_rsa.pub是公共秘钥，可以随便给别人看。把这个公钥放在GitHub上，这样当你链接GitHub自己的账户时，它就会根据公钥匹配你的私钥，当能够相互匹配时，才能够顺利的通过git上传你的文件到GitHub上。</p>
-<p><img src="C:\Users\cheng\AppData\Roaming\Typora\typora-user-images\image-20220327132245426.png" alt="image-20220327132245426"></p>
-<p>而后在GitHub的setting中，找到SSH keys的设置选项，点击New SSH key把id_rsa.pub`里面的信息复制进去。</p>
-<p><img src="C:\Users\cheng\AppData\Roaming\Typora\typora-user-images\image-20220327135818253.png" alt="image-20220327135818253"></p>
-<p>在gitbush中查看是否成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<h2 id="将hexo部署到github"><a href="#将hexo部署到github" class="headerlink" title="将hexo部署到github"></a>将hexo部署到github</h2><p>这一步，我们就可以将hexo和GitHub关联起来，也就是将hexo生成的文章部署到GitHub上，打开站点配置文件 _config.yml，翻到最后，修改为 YourgithubName就是你的GitHub账户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;YourgithubName&#x2F;YourgithubName.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>这时候需要先安装deploy-git</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p>然后</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &#x2F;&#x2F;清楚之前的东西</span><br><span class="line">hexo generate &#x2F;&#x2F;生成静态文章，也可以写成hexo g</span><br><span class="line">hexo deploy &#x2F;&#x2F;部署文章，可以写成hexo d</span><br></pre></td></tr></table></figure>
-<p>在deploy过程中可能需要输入username和password</p>
-<p>过一会儿就可以在<code>http://yourname.github.io</code>这个网站看到博客</p>
-<h2 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h2><p>完成上面步骤之后就可以开始写文章</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new newpapername</span><br></pre></td></tr></table></figure>
-<p>然后在source/_post中打开markdown文件，就可以开始编辑，普通文本编辑器就可以编辑，这里推荐建议使用typora。写完文章之后，打开git bush</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>就可以看到文章更新。</p>
-<p>本文部分参考以下博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_37781304/article/details/82729029">https://blog.csdn.net/sinat_37781304/article/details/82729029</a></p>
-
+        
+          <a class="article-more-a" href="/2021/02/04/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Ayilia%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/#more">more >></a>
+        
       
 
       
