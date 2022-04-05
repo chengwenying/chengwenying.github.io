@@ -8,21 +8,22 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Rust语言编程学习_1 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Rust编程环境安装Rust在 Windows 上，Rust 编译工具：https:&#x2F;&#x2F;www.rust-lang.org&#x2F;zh-CN&#x2F;tools&#x2F;install，注意Rust 的编译工具依赖 C 语言的编译工具，这意味着电脑上至少已经存在一个 C 语言的编译环境。下载好的 Rustup 在 Windows 上是一个可执行程序 rustup-init.exe。执行此文件：  如果已经存在C语言环境">
+  <meta name="description" content="Rust编程环境安装Rust">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rust语言编程学习_1">
 <meta property="og:url" content="http://example.com/2022/04/03/rust-1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Rust编程环境安装Rust在 Windows 上，Rust 编译工具：https:&#x2F;&#x2F;www.rust-lang.org&#x2F;zh-CN&#x2F;tools&#x2F;install，注意Rust 的编译工具依赖 C 语言的编译工具，这意味着电脑上至少已经存在一个 C 语言的编译环境。下载好的 Rustup 在 Windows 上是一个可执行程序 rustup-init.exe。执行此文件：  如果已经存在C语言环境">
+<meta property="og:description" content="Rust编程环境安装Rust">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/04/03/images/rust-1/rust-env1.png">
 <meta property="og:image" content="http://example.com/2022/04/03/images/rust-1/rust-env7.png">
 <meta property="og:image" content="http://example.com/2022/04/03/images/rust-1/image-20220403171221642.png">
 <meta property="og:image" content="http://example.com/2022/04/03/images/rust-1/image-20220403171703853.png">
+<meta property="og:image" content="http://example.com/2022/04/03/images/rust-1/image-20220403212630229.png">
 <meta property="article:published_time" content="2022-04-03T08:01:58.000Z">
-<meta property="article:modified_time" content="2022-04-03T09:21:21.014Z">
+<meta property="article:modified_time" content="2022-04-05T12:28:50.482Z">
 <meta property="article:author" content="chengwenying">
-<meta property="article:tag" content="归档">
+<meta property="article:tag" content="rust">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2022/04/03/images/rust-1/rust-env1.png">
   
@@ -183,7 +184,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Rust编程环境"><a href="#Rust编程环境" class="headerlink" title="Rust编程环境"></a>Rust编程环境</h2><h3 id="安装Rust"><a href="#安装Rust" class="headerlink" title="安装Rust"></a>安装Rust</h3><p>在 Windows 上，Rust 编译工具：<a target="_blank" rel="noopener" href="https://www.rust-lang.org/zh-CN/tools/install%EF%BC%8C%E6%B3%A8%E6%84%8FRust">https://www.rust-lang.org/zh-CN/tools/install，注意Rust</a> 的编译工具依赖 C 语言的编译工具，这意味着电脑上至少已经存在一个 C 语言的编译环境。下载好的 Rustup 在 Windows 上是一个可执行程序 rustup-init.exe。执行此文件：</p>
+        <h2 id="Rust编程环境"><a href="#Rust编程环境" class="headerlink" title="Rust编程环境"></a>Rust编程环境</h2><h3 id="安装Rust"><a href="#安装Rust" class="headerlink" title="安装Rust"></a>安装Rust</h3><a id="more"></a>
+
+<p>在 Windows 上，Rust 编译工具：<a target="_blank" rel="noopener" href="https://www.rust-lang.org/zh-CN/tools/install%EF%BC%8C%E6%B3%A8%E6%84%8FRust">https://www.rust-lang.org/zh-CN/tools/install，注意Rust</a> 的编译工具依赖 C 语言的编译工具，这意味着电脑上至少已经存在一个 C 语言的编译环境。下载好的 Rustup 在 Windows 上是一个可执行程序 rustup-init.exe。执行此文件：</p>
 <p><img src="../images/rust-1/rust-env1.png" alt="img"></p>
 <p>如果已经存在C语言环境，则直接输入1回车，就完成了安装。打开cmd，输入rust -V查看版本，如果出现版本信息，则证明安装成功。</p>
 <h3 id="安装vs-code"><a href="#安装vs-code" class="headerlink" title="安装vs code"></a>安装vs code</h3><p>1.下载完 Visual Studio Code 安装包之后启动安装向导安装</p>
@@ -191,15 +194,19 @@
 <p>3.用同样的方法再安装 rls 和 Native Debug 两个扩展。</p>
 <p><img src="../images/rust-1/rust-env7.png" alt="img"></p>
 <p>重新启动 VSCode，Rust 的开发环境就搭建好了。</p>
-<h3 id="运行第一个程序"><a href="#运行第一个程序" class="headerlink" title="运行第一个程序"></a>运行第一个程序</h3><p>现在新建一个文件夹，在 VSCode 中打开新建的文件夹，打开文件夹之后选择菜单栏中的”终端”-“新建终端”，会打开一个新的终端，在终端中输入命令：</p>
+<h3 id="使用cargo运行第一个程序"><a href="#使用cargo运行第一个程序" class="headerlink" title="使用cargo运行第一个程序"></a>使用cargo运行第一个程序</h3><p>现在新建一个文件夹，在 VSCode 中打开新建的文件夹，打开文件夹之后选择菜单栏中的”终端”-“新建终端”，会打开一个新的终端，在终端中输入命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo new test1</span><br></pre></td></tr></table></figure>
 <p>当前文件下下会构建一个名叫test1的 Rust 工程目录。</p>
 <p><img src="../images/rust-1/image-20220403171221642.png" alt="image-20220403171221642"></p>
 <p>现在在终端里输入以下三个命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd .&#x2F;test1</span><br><span class="line">cargo build</span><br><span class="line">cargo run</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd .&#x2F;test1</span><br><span class="line">cargo build  &#x2F;&#x2F;编译并生成可执行文件</span><br><span class="line">&#x2F;&#x2F;如果仅需要检查代码的正确性而不生成文件可以使用cargo check</span><br><span class="line">cargo run  &#x2F;&#x2F;运行</span><br></pre></td></tr></table></figure>
 <p>系统在创建工程时会生成一个 Hello, world 源程序 main.rs，这时会被编译并运行：</p>
 <p><img src="../images/rust-1/image-20220403171703853.png" alt="image-20220403171703853"></p>
 <p>至此，就成功构建了一个 Rust 命令行程序！</p>
+<h3 id="Cargo-引入依赖（库）"><a href="#Cargo-引入依赖（库）" class="headerlink" title="Cargo 引入依赖（库）"></a>Cargo 引入依赖（库）</h3><p>需要修改 <em>Cargo.toml</em> 文件，引入一个 依赖。打开文件并将下面这一行添加到 [dependencies]片段标题之下。此处以rand库为例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rand &#x3D;&quot;0.8.3&quot;  &#x2F;&#x2F;等号前面是依赖，后面是版本号</span><br></pre></td></tr></table></figure>
+<p><img src="../images/rust-1/image-20220403212630229.png" alt="image-20220403212630229"></p>
+<p>在 <em>Cargo.toml</em> 文件中，标题以及之后的内容属同一个片段，直到遇到下一个标题才开始新的片段。<code>[dependencies]</code> 片段告诉 Cargo 本项目依赖了哪些外部 crate 及其版本。</p>
 
       
 
@@ -244,7 +251,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">归档</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">rust</a>
         		</li>
       		
 		</ul>
@@ -314,6 +321,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2022/04/03/rust-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Rust语言编程学习_2
+        
+      </div>
+    </a>
+  
   
     <a href="/2022/03/27/hexo-problem-solution/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Hexo使用过程中常见问题及解决方法</div>
@@ -343,7 +359,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Rust%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">Rust编程环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Rust"><span class="toc-number">1.1.</span> <span class="toc-text">安装Rust</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85vs-code"><span class="toc-number">1.2.</span> <span class="toc-text">安装vs code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.</span> <span class="toc-text">运行第一个程序</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Rust%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">Rust编程环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Rust"><span class="toc-number">1.1.</span> <span class="toc-text">安装Rust</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85vs-code"><span class="toc-number">1.2.</span> <span class="toc-text">安装vs code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8cargo%E8%BF%90%E8%A1%8C%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.</span> <span class="toc-text">使用cargo运行第一个程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cargo-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96%EF%BC%88%E5%BA%93%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">Cargo 引入依赖（库）</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -460,6 +476,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">归档</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">rust</a>
               </li>
             
             <div class="clearfix"></div>
