@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Rust语言编程学习_3 | Hexo</title>
+  <title>Rust语言编程学习_5 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="所有权">
+  <meta name="description" content="枚举与模式匹配">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Rust语言编程学习_3">
-<meta property="og:url" content="http://example.com/2022/04/05/rust-3/index.html">
+<meta property="og:title" content="Rust语言编程学习_5">
+<meta property="og:url" content="http://example.com/2022/04/19/rust-5/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="所有权">
+<meta property="og:description" content="枚举与模式匹配">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/04/05/images/rust-3/image-20220406203812294.png">
-<meta property="og:image" content="http://example.com/2022/04/05/images/rust-3/image-20220407221556136.png">
-<meta property="og:image" content="http://example.com/2022/04/05/images/rust-3/image-20220408160546025.png">
-<meta property="article:published_time" content="2022-04-05T12:28:23.000Z">
-<meta property="article:modified_time" content="2022-04-22T06:41:22.561Z">
+<meta property="article:published_time" content="2022-04-19T10:02:51.000Z">
+<meta property="article:modified_time" content="2022-04-22T08:43:40.500Z">
 <meta property="article:author" content="chengwenying">
 <meta property="article:tag" content="rust">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/04/05/images/rust-3/image-20220406203812294.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -162,65 +158,53 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-rust-3" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-rust-5" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Rust语言编程学习_3
+      Rust语言编程学习_5
     </h1>
   
 
         
-        <a href="/2022/04/05/rust-3/" class="archive-article-date">
-  	<time datetime="2022-04-05T12:28:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-05</time>
+        <a href="/2022/04/19/rust-5/" class="archive-article-date">
+  	<time datetime="2022-04-19T10:02:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="所有权"><a href="#所有权" class="headerlink" title="所有权"></a>所有权</h2><a id="more"></a>
+        <h2 id="枚举与模式匹配"><a href="#枚举与模式匹配" class="headerlink" title="枚举与模式匹配"></a>枚举与模式匹配</h2><a id="more"></a>
 
-<ol>
-<li>Rust 中的每一个值都有一个被称为其 <strong>所有者</strong>（<em>owner</em>）的变量。</li>
-<li>值在任一时刻有且只有一个所有者。</li>
-<li>当所有者（变量）离开作用域，这个值将被丢弃。</li>
-</ol>
-<ul>
-<li>移动</li>
-</ul>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">String</span>::from(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> s2 = s1;</span><br></pre></td></tr></table></figure>
-<p><img src="../images/rust-3/image-20220406203812294.png" alt="image-20220406203812294"></p>
-<p>当将 <code>s1</code> 赋值给 <code>s2</code>，<code>String</code> 的数据被复制了，这意味着从栈上拷贝了它的指针、长度和容量，但并没有复制指针指向的堆上数据。Rust 同时使 <code>s1</code> 变量无效了，失去了数据的所有权，这个操作被称为 <strong>移动</strong>（<em>move</em>）。</p>
-<ul>
-<li>克隆</li>
-</ul>
-<p>如果<strong>确实</strong>需要深度复制 <code>String</code> 中堆上的数据，而不仅仅是栈上的数据，可以使用一个叫做 <code>clone</code> 的通用函数。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">String</span>::from(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> s2 = s1.clone();</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;s1 = &#123;&#125;, s2 = &#123;&#125;&quot;</span>, s1, s2);</span><br></pre></td></tr></table></figure>
-<p>但是对于一些普通的数据类型，可以直接进行拷贝，而不需要通过克隆，以下数据类型都可以：</p>
-<ol>
-<li>所有整数类型，比如 <code>u32</code>。</li>
-<li>布尔类型，<code>bool</code>，它的值是 <code>true</code> 和 <code>false</code>。</li>
-<li>所有浮点数类型，比如 <code>f64</code>。</li>
-<li>字符类型，<code>char</code>。</li>
-<li>元组，当且仅当其包含的类型也都实现 <code>Copy</code> 的时候。比如，<code>(i32, i32)</code> 实现了 <code>Copy</code>，但 <code>(i32, String)</code> 就没有。</li>
-</ol>
-<h2 id="引用与借用"><a href="#引用与借用" class="headerlink" title="引用与借用"></a>引用与借用</h2><p>引用可以实现访问数据而不拥有数据的所有权。下图就是引用实现的原理。创建一个引用的行为称为 <strong>借用</strong>。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> s1 = <span class="built_in">String</span>::from(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> len = calculate_length(&amp;s1);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The length of &#x27;&#123;&#125;&#x27; is &#123;&#125;.&quot;</span>, s1, len);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">calculate_length</span></span>(s: &amp;<span class="built_in">String</span>) -&gt; <span class="built_in">usize</span> &#123;</span><br><span class="line">    s.len()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="../images/rust-3/image-20220407221556136.png" alt="image-20220407221556136"></p>
-<p>如果要对引用的变量进行更改，需要将变量设置为 <code>mut</code>，调用的时候创建可变引用 <code>&amp;mut</code>。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> s = <span class="built_in">String</span>::from(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    change(&amp;<span class="keyword">mut</span> s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">change</span></span>(some_string: &amp;<span class="keyword">mut</span> <span class="built_in">String</span>) &#123;</span><br><span class="line">    some_string.push_str(<span class="string">&quot;, world&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>引用的规则：</p>
-<p>   1.在任意给定时间，<strong>要么</strong> 只能有一个可变引用，<strong>要么</strong> 只能有多个不可变引用。</p>
-<p>  2.引用必须总是有效的。</p>
-<h2 id="Slice类型"><a href="#Slice类型" class="headerlink" title="Slice类型"></a>Slice类型</h2><p><em>slice</em> 允许引用集合中一段连续的元素序列，而不用引用整个集合。slice 是一类引用，所以它没有所有权。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">String</span>::from(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> hello = &amp;s[<span class="number">0</span>..<span class="number">5</span>];<span class="comment">//左闭右开</span></span><br><span class="line"><span class="keyword">let</span> world = &amp;s[<span class="number">6</span>..<span class="number">11</span>];<span class="comment">//如果是整个字符串的话可以写成&amp;s[..]</span></span><br></pre></td></tr></table></figure>
-<p><img src="../images/rust-3/image-20220408160546025.png" alt="image-20220408160546025"></p>
-<p>除了字符串slice，也有普通数据类型的slice，比如数组。</p>
-
+<h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><p>枚举是一个不同于结构体的定义自定义数据类型的方式，可以利用 <strong>枚举</strong> 列出所有可能的值。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">IpAddrKind</span></span> &#123;  <span class="comment">//使用enum关键字声明IpAddrKind的枚举类型</span></span><br><span class="line">    V4,</span><br><span class="line">    V6,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> four = IpAddrKind::V4; <span class="comment">//实例化V4，枚举的成员位于其标识符的命名空间中，并使用两个冒号分开</span></span><br><span class="line"><span class="keyword">let</span> six = IpAddrKind::V6;</span><br></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">IpAddr</span></span> &#123;</span><br><span class="line">    V4(<span class="built_in">String</span>),  <span class="comment">//string类型的数据直接附加到枚举成员上，就不需要额外在定义结构体</span></span><br><span class="line">    V6(<span class="built_in">String</span>),</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> home =IpAddr::V4(<span class="built_in">String</span>::from(<span class="string">&quot;127.0.0.1&quot;</span>));<span class="comment">//ipv4实例</span></span><br><span class="line"><span class="keyword">let</span> loopback = IpAddr::V6(<span class="built_in">String</span>::from(<span class="string">&quot;::1&quot;</span>));</span><br></pre></td></tr></table></figure>
+<p>像IP地址这些常见的枚举类型，标准库中已经定义，但是仍然可以自定义。</p>
+<p>和结构体一样枚举的成员可以是不同的数据类型</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Message</span></span> &#123;</span><br><span class="line">    Quit, <span class="comment">//没有关联任何数据</span></span><br><span class="line">    Move &#123; x: <span class="built_in">i32</span>, y: <span class="built_in">i32</span> &#125;, <span class="comment">//类似结构体包含命名字段</span></span><br><span class="line">    Write(<span class="built_in">String</span>), <span class="comment">//包含单独一个String</span></span><br><span class="line">    ChangeColor(<span class="built_in">i32</span>, <span class="built_in">i32</span>, <span class="built_in">i32</span>), <span class="comment">//包含3个i32</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结构体和枚举还有另一个相似点：就像可以使用 <code>impl</code> 来为结构体定义方法那样，也可以在枚举上定义方法。定义在枚举上的叫做 <code>call</code> 方法：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> Message &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">call</span></span>(&amp;<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="comment">// 在这里定义方法体</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> m = Message::Write(<span class="built_in">String</span>::from(<span class="string">&quot;hello&quot;</span>));</span><br><span class="line">m.call();</span><br></pre></td></tr></table></figure>
+<p>标准库中提供了一个常见的枚举<strong>Option</strong>，<code>Option</code> 类型应用广泛因为它编码了一个非常普遍的场景，即一个值要么有值要么没值。Rust 并没有空值，来限制空值的泛滥以增加 Rust 代码的安全性，不过它确实拥有一个可以编码存在或不存在概念的枚举。这个枚举是 <code>Option&lt;T&gt;</code>，</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Option</span></span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="literal">None</span>,</span><br><span class="line">    <span class="literal">Some</span>(T),</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以不需要 Option:: 前缀来直接使用 Some 和 None</span></span><br><span class="line"><span class="keyword">let</span> some_number = <span class="literal">Some</span>(<span class="number">5</span>); </span><br><span class="line"><span class="keyword">let</span> some_string = <span class="literal">Some</span>(<span class="string">&quot;a string&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> absent_number: <span class="built_in">Option</span>&lt;<span class="built_in">i32</span>&gt; = <span class="literal">None</span>;<span class="comment">//需要显示说明类型是i32</span></span><br></pre></td></tr></table></figure>
+<p>当有一个 <code>Some</code> 值时，就知道存在一个值，而这个值保存在 <code>Some</code> 中。当有个 <code>None</code> 值时，在某种意义上，它跟空值具有相同的意义，这能帮助捕获到空值最常见的问题之一：假设某值不为空但实际上为空的情况。</p>
+<h3 id="match控制流运算符"><a href="#match控制流运算符" class="headerlink" title="match控制流运算符"></a>match控制流运算符</h3><p>允许一个值与一系列模式进行匹配，并执行匹配模式对应的代码，模式可以是字面值、变量名、通配符等等， <code>match</code> 的分支有两个部分：一个模式和一些代码，每一个分支之间使用逗号分隔。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Coin</span></span> &#123;</span><br><span class="line">    Penny,</span><br><span class="line">    Nickel,</span><br><span class="line">    Dime,</span><br><span class="line">    Quarter,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">value_in_cents</span></span>(coin: Coin) -&gt; <span class="built_in">u8</span> &#123;</span><br><span class="line">    <span class="keyword">match</span> coin &#123;</span><br><span class="line">        Coin::Penny =&gt; <span class="number">1</span>, <span class="comment">//结果值与分支模式按照顺序比较</span></span><br><span class="line">        <span class="comment">//如果分支较长则需要使用大括号，仍返回最后的值，例如：</span></span><br><span class="line">        <span class="comment">/*Coin::Penny =&gt; &#123;</span></span><br><span class="line"><span class="comment">            println!(&quot;Lucky penny!&quot;);</span></span><br><span class="line"><span class="comment">            1</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line">        Coin::Nickel =&gt; <span class="number">5</span>,</span><br><span class="line">        Coin::Dime =&gt; <span class="number">10</span>,</span><br><span class="line">        Coin::Quarter =&gt; <span class="number">25</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>match</code>看起来非常像 <code>if</code> 使用的表达式，不过这里有一个非常大的区别：对于 <code>if</code>，表达式必须返回一个布尔值，而这里它可以是任何类型的。</p>
+<p>匹配分支的另一个有用的功能是可以绑定匹配的模式的部分值。因此，可以从enum变体中提取值。<code>match</code> 一个枚举，绑定其中的值到一个变量，接着根据其值执行代码。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[derive(Debug)]</span> <span class="comment">// 这样可以立刻看到州的名称</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">UsState</span></span> &#123;</span><br><span class="line">    Alabama,</span><br><span class="line">    Alaska,</span><br><span class="line">    <span class="comment">// --snip--</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Coin</span></span> &#123;</span><br><span class="line">    Penny,</span><br><span class="line">    Nickel,</span><br><span class="line">    Dime,</span><br><span class="line">    Quarter(UsState),</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">value_in_cents</span></span>(coin: Coin) -&gt; <span class="built_in">u8</span> &#123;</span><br><span class="line">    <span class="keyword">match</span> coin &#123;</span><br><span class="line">        Coin::Penny =&gt; <span class="number">1</span>,</span><br><span class="line">        Coin::Nickel =&gt; <span class="number">5</span>,</span><br><span class="line">        Coin::Dime =&gt; <span class="number">10</span>,</span><br><span class="line">        Coin::Quarter(state) =&gt; &#123; <span class="comment">//state绑定值</span></span><br><span class="line">            <span class="built_in">println!</span>(<span class="string">&quot;State quarter from &#123;:?&#125;!&quot;</span>, state); <span class="comment">//在对应的代码块可以使用state变量</span></span><br><span class="line">            <span class="number">25</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>匹配Option&lt;T&gt;</strong></p>
+<p>比如我们想要编写一个函数，它获取一个 <code>Option&lt;i32&gt;</code> ，如果其中含有一个值，将其加一。如果其中没有值，函数应该返回 <code>None</code> 值，而不尝试执行任何操作。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">plus_one</span></span>(x: <span class="built_in">Option</span>&lt;<span class="built_in">i32</span>&gt;) -&gt; <span class="built_in">Option</span>&lt;<span class="built_in">i32</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">match</span> x &#123;</span><br><span class="line">        <span class="literal">None</span> =&gt; <span class="literal">None</span>,<span class="comment">//如果缺少一个分支则编译错误</span></span><br><span class="line">        <span class="literal">Some</span>(i) =&gt; <span class="literal">Some</span>(i + <span class="number">1</span>),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> five = <span class="literal">Some</span>(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">let</span> six = plus_one(five);</span><br><span class="line"><span class="keyword">let</span> none = plus_one(<span class="literal">None</span>);</span><br></pre></td></tr></table></figure>
+<p>Rust 中的匹配是<code>穷尽的</code>：必须穷举到最后的可能性来使代码有效，如果希望对一些特定的值采取特殊操作，而对其他的值采取默认操作，可以使用通配模式<code>other</code>或者占位符<code>_</code>，但是通配的分治必须放在穷举的最后。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dice_roll = <span class="number">9</span>;</span><br><span class="line"><span class="keyword">match</span> dice_roll &#123;</span><br><span class="line">    <span class="number">3</span> =&gt; add_fancy_hat(),</span><br><span class="line">    <span class="number">7</span> =&gt; remove_fancy_hat(),</span><br><span class="line">    other =&gt; move_player(other),</span><br><span class="line">    <span class="comment">//或者  _ =&gt; reroll(),  匹配任意值而不绑定</span></span><br><span class="line">    <span class="comment">//再或者  _ =&gt; (), 无事发生</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">add_fancy_hat</span></span>() &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">remove_fancy_hat</span></span>() &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">move_player</span></span>(num_spaces: <span class="built_in">u8</span>) &#123;&#125;</span><br><span class="line"><span class="comment">//fn reroll() &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="if-let简单控制流"><a href="#if-let简单控制流" class="headerlink" title="if let简单控制流"></a>if let简单控制流</h3><p><code>if let</code> 语法来处理只匹配一个模式的值而忽略其他模式的情况，不需要强制穷举所有情况，增加简洁度。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用match模式匹配</span></span><br><span class="line"><span class="keyword">let</span> config_max = <span class="literal">Some</span>(<span class="number">3u8</span>);</span><br><span class="line"><span class="keyword">match</span> config_max &#123;</span><br><span class="line">    <span class="literal">Some</span>(max) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;The maximum is configured to be &#123;&#125;&quot;</span>, max),</span><br><span class="line">    _ =&gt; (),</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//使用if let</span></span><br><span class="line"><span class="keyword">let</span> config_max = <span class="literal">Some</span>(<span class="number">3u8</span>);</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> <span class="literal">Some</span>(max) = config_max &#123;</span><br><span class="line">   <span class="built_in">println!</span>(<span class="string">&quot;The maximum is configured to be &#123;&#125;&quot;</span>, max);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以在 <code>if let</code> 中包含一个 <code>else</code>。<code>else</code> 块中的代码与 <code>match</code> 表达式中的 <code>_</code> 分支块中的代码相同。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> Coin::Quarter(state) = coin &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;State quarter from &#123;:?&#125;!&quot;</span>, state);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    count += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -320,7 +304,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://chengwenying.github.io/022/04/05/rust-3/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://chengwenying.github.io/022/04/19/rust-5/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -334,18 +318,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/04/08/rust-4/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/04/22/rust-6/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Rust语言编程学习_4
+          rust_6
         
       </div>
     </a>
   
   
-    <a href="/2022/04/03/rust-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Rust语言编程学习_2</div>
+    <a href="/2022/04/08/rust-4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Rust语言编程学习_4</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -372,7 +356,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E6%9D%83"><span class="toc-number">1.</span> <span class="toc-text">所有权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E4%B8%8E%E5%80%9F%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">引用与借用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Slice%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">Slice类型</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E4%B8%8E%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="toc-number">1.</span> <span class="toc-text">枚举与模式匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE"><span class="toc-number">1.1.</span> <span class="toc-text">枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#match%E6%8E%A7%E5%88%B6%E6%B5%81%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.2.</span> <span class="toc-text">match控制流运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if-let%E7%AE%80%E5%8D%95%E6%8E%A7%E5%88%B6%E6%B5%81"><span class="toc-number">1.3.</span> <span class="toc-text">if let简单控制流</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
