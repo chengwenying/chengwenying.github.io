@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>rust-7 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2021/index.html">
+  <meta name="description" content="常见集合vector 、String、hashmap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rust-7">
+<meta property="og:url" content="http://example.com/2022/05/04/rust-7/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="常见集合vector 、String、hashmap">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-04T09:51:20.000Z">
+<meta property="article:modified_time" content="2022-05-06T08:58:45.649Z">
 <meta property="article:author" content="chengwenying">
+<meta property="article:tag" content="rust">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -153,97 +158,257 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-rust-7" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/04/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Ayilia%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-02-04T06:36:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/04/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Ayilia%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/">hexo博客搭建</a>
+    <h1 class="article-title" itemprop="name">
+      rust-7
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/05/04/rust-7/" class="archive-article-date">
+  	<time datetime="2022-05-04T09:51:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="常见集合"><a href="#常见集合" class="headerlink" title="常见集合"></a>常见集合</h3><p><strong>vector 、String、hashmap</strong></p>
+<a id="more"></a>
+
+<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h3><p>vector 允许在一个单独的数据结构中储存多个相同类型的值，它在内存中彼此相邻地排列所有的值。</p>
+<p>新建vector</p>
+<p>创建一个新的空的vector，调用<code>Vec::new</code>函数</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> v: <span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt; = Vet::new(); <span class="comment">//创建空的vector，其中值的数据类型指定为i32</span></span><br><span class="line"><span class="keyword">let</span> v = <span class="built_in">vec!</span>[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];<span class="comment">//新建一个包含初值的vector，rust编译器会推断出类型为i32</span></span><br></pre></td></tr></table></figure>
+<h4 id="更新vector"><a href="#更新vector" class="headerlink" title="更新vector"></a>更新vector</h4><p>对于新建一个 vector 并向其增加元素，可以使用 <code>push</code> 方法</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> v = <span class="built_in">Vec</span>::new(); <span class="comment">//增加元素必须有mut关键字</span></span><br><span class="line">    v.push(<span class="number">5</span>); <span class="comment">//i32类型</span></span><br><span class="line">    v.push(<span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="获取vector元素"><a href="#获取vector元素" class="headerlink" title="获取vector元素"></a>获取vector元素</h4><p>两种方式：索引、<code>get</code>方法</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> v = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> third: &amp;<span class="built_in">i32</span> = &amp;v[<span class="number">2</span>]; <span class="comment">//索引，从0开始，使用&amp;和[]返回引用</span></span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;The third element is &#123;&#125;&quot;</span>, third);</span><br><span class="line"><span class="keyword">match</span> v.get(<span class="number">2</span>) &#123; <span class="comment">//get方法，返回一个Option&lt;&amp;T&gt;</span></span><br><span class="line">    <span class="literal">Some</span>(third) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;The third element is &#123;&#125;&quot;</span>, third),</span><br><span class="line">    <span class="literal">None</span> =&gt; <span class="built_in">println!</span>(<span class="string">&quot;There is no third element.&quot;</span>),</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#两种方式的差别</span><br><span class="line"><span class="keyword">let</span> v = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> does_not_exist = &amp;v[<span class="number">100</span>]; <span class="comment">//会造成panic</span></span><br><span class="line"><span class="keyword">let</span> does_not_exist = v.get(<span class="number">100</span>); <span class="comment">//不会panic，返回None</span></span><br></pre></td></tr></table></figure>
+<p>遵循所有权和借用规则</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> v = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> first = &amp;v[<span class="number">0</span>]; <span class="comment">//不可变引用</span></span><br><span class="line">v.push(<span class="number">6</span>); <span class="comment">//可变</span></span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;The first element is: &#123;&#125;&quot;</span>, first); <span class="comment">//不可变</span></span><br></pre></td></tr></table></figure>
+<p>在 vector 的结尾增加新元素时，在没有足够空间将所有所有元素依次相邻存放的情况下，可能会要求分配新内存并将老的元素拷贝到新的空间中。这时，第一个元素的引用就指向了被释放的内存。借用规则阻止程序陷入这种状况。</p>
+<h4 id="遍历vector元素"><a href="#遍历vector元素" class="headerlink" title="遍历vector元素"></a>遍历vector元素</h4><p> <code>for</code> 循环来获取 <code>i32</code> 值的 vector 中的每一个元素的不可变引用并将其打印：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> v = <span class="built_in">vec!</span>[<span class="number">100</span>, <span class="number">32</span>, <span class="number">57</span>];</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &amp;v &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以遍历可变 vector 的每一个元素的可变引用来更新值</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> v = <span class="built_in">vec!</span>[<span class="number">100</span>, <span class="number">32</span>, <span class="number">57</span>];</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &amp;<span class="keyword">mut</span> v &#123;</span><br><span class="line">    *i += <span class="number">50</span>;<span class="comment">//*是解引用运算符</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="vector用枚举可以存储多种类型"><a href="#vector用枚举可以存储多种类型" class="headerlink" title="vector用枚举可以存储多种类型"></a>vector用枚举可以存储多种类型</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">SpreadsheetCell</span></span> &#123;</span><br><span class="line">    Int(<span class="built_in">i32</span>),</span><br><span class="line">    Float(<span class="built_in">f64</span>),</span><br><span class="line">    Text(<span class="built_in">String</span>),</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> row = <span class="built_in">vec!</span>[</span><br><span class="line">    SpreadsheetCell::Int(<span class="number">3</span>),</span><br><span class="line">    SpreadsheetCell::Text(<span class="built_in">String</span>::from(<span class="string">&quot;blue&quot;</span>)),</span><br><span class="line">    SpreadsheetCell::Float(<span class="number">10.12</span>),</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<h3 id="String类型"><a href="#String类型" class="headerlink" title="String类型"></a>String类型</h3><p> <code>String</code> 类型由标准库提供，没有写进核心语言部分，它是可增长的、可变的、有所有权的、<code>UTF-8</code> 编码的字符串类型。</p>
+<h4 id="新建字符串"><a href="#新建字符串" class="headerlink" title="新建字符串"></a>新建字符串</h4><p>很多vector可用的操作在String中也可以使用</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> s =<span class="built_in">String</span>::new(); <span class="comment">//new函数新建一个空的String</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> data = <span class="string">&quot;hello,world!&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> s = data.to_string(); <span class="comment">//to_string方法可以设置字符串初始值</span></span><br><span class="line"><span class="keyword">let</span> s = <span class="string">&quot;hello,world!&quot;</span>.to_string();<span class="comment">//此方法同上</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s = <span class="built_in">String</span>::from(<span class="string">&quot;hello,world!&quot;</span>);<span class="comment">//也可以通过String::from来创建</span></span><br></pre></td></tr></table></figure>
+<h4 id="更新字符串"><a href="#更新字符串" class="headerlink" title="更新字符串"></a>更新字符串</h4><p><code>String</code> 的大小可以增加，其内容也可以改变，就像可以放入更多数据来改变 <code>Vec</code> 的内容一样。另外，可以方便的使用 <code>+</code> 运算符或 <code>format!</code> 宏来拼接 <code>String</code> 值。</p>
+<ul>
+<li>使用push_str和push附加字符串</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> s = <span class="built_in">String</span>::from(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line">s.push_str(<span class="string">&quot;bar&quot;</span>); <span class="comment">//push_str方法附加字符串slice</span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> s1 = <span class="built_in">String</span>::from(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> s2 = <span class="string">&quot;bar&quot;</span>;</span><br><span class="line">s1.push_str(s2); <span class="comment">//获取了s2的所有权</span></span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;s2 is &#123;&#125;&quot;</span>, s2); <span class="comment">//编译会报错</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> s = <span class="built_in">String</span>::from(<span class="string">&quot;lo&quot;</span>);</span><br><span class="line">s.push(<span class="string">&#x27;l&#x27;</span>);<span class="comment">//push方法获取单个字符作为参数</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用<code>+</code>运算符或<code>format!</code>宏拼接字符串</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">String</span>::from(<span class="string">&quot;Hello, &quot;</span>);</span><br><span class="line"><span class="keyword">let</span> s2 = <span class="built_in">String</span>::from(<span class="string">&quot;world!&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> s3 = s1 + &amp;s2; <span class="comment">// 注意 s1 被移动了，不能继续使用，s2是引用可以继续使用</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s = s1 + <span class="string">&quot;-&quot;</span> + &amp;s2 + <span class="string">&quot;-&quot;</span> + &amp;s3; <span class="comment">//多个+连接字符串</span></span><br><span class="line"><span class="keyword">let</span> s = <span class="built_in">format!</span>(<span class="string">&quot;&#123;&#125;-&#123;&#125;-&#123;&#125;&quot;</span>, s1, s2, s3); <span class="comment">//使用format!宏，且s不会取得s1，s2，s3的所有权</span></span><br></pre></td></tr></table></figure>
+<h4 id="索引字符串"><a href="#索引字符串" class="headerlink" title="索引字符串"></a>索引字符串</h4><p>rust不允许使用索引获取String字符，因为String类型采用UTF-8编码，字符对应的字节数是不确定的（字节值，字符，字形簇），并且索引操作预期需要常数时间O(1)，但是String不能保证。</p>
+<h3 id="哈希map"><a href="#哈希map" class="headerlink" title="哈希map"></a>哈希map</h3><p><code>HashMap&lt;K, V&gt;</code> 类型储存了一个键类型 <code>K</code> 对应一个值类型 <code>V</code> 的映射。它通过一个 hash函数来实现映射，决定如何将键和值放入内存中。哈希 map 可以用于需要任何类型作为键来寻找数据的情况。</p>
+<h4 id="新建哈希map"><a href="#新建哈希map" class="headerlink" title="新建哈希map"></a>新建哈希map</h4><p>可以使用 <code>new</code> 创建一个空的 <code>HashMap</code>，并使用 <code>insert</code> 增加元素。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::collections::HashMap;<span class="comment">//标准库中集合部分的HashMap</span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> scores = HashMap::new();<span class="comment">//创建空的hashmap</span></span><br><span class="line">scores.insert(<span class="built_in">String</span>::from(<span class="string">&quot;Blue&quot;</span>), <span class="number">10</span>);<span class="comment">//insert String类型的键和i32类型的值</span></span><br><span class="line">scores.insert(<span class="built_in">String</span>::from(<span class="string">&quot;Yellow&quot;</span>), <span class="number">50</span>);<span class="comment">//所有键的类型都必须一样，所有值的类型也必须一样</span></span><br></pre></td></tr></table></figure>
+<p>另一个构建哈希 map 的方法是在一个元组的 vector 上使用迭代器（iterator）和 <code>collect</code> 方法，其中每个元组包含一个键值对。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::collections::HashMap;</span><br><span class="line"><span class="keyword">let</span> teams = <span class="built_in">vec!</span>[<span class="built_in">String</span>::from(<span class="string">&quot;Blue&quot;</span>), <span class="built_in">String</span>::from(<span class="string">&quot;Yellow&quot;</span>)];</span><br><span class="line"><span class="keyword">let</span> initial_scores = <span class="built_in">vec!</span>[<span class="number">10</span>, <span class="number">50</span>];</span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> scores: HashMap&lt;_, _&gt; =</span><br><span class="line">teams.into_iter().zip(initial_scores.into_iter()).collect();</span><br></pre></td></tr></table></figure>
+<h4 id="哈希map所有权"><a href="#哈希map所有权" class="headerlink" title="哈希map所有权"></a>哈希map所有权</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::collections::HashMap;</span><br><span class="line"><span class="keyword">let</span> field_name = <span class="built_in">String</span>::from(<span class="string">&quot;Favorite color&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> field_value = <span class="built_in">String</span>::from(<span class="string">&quot;Blue&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> map = HashMap::new();</span><br><span class="line">map.insert(field_name, field_value);<span class="comment">// 这里 field_name 和 field_value 不再有效</span></span><br></pre></td></tr></table></figure>
+<h4 id="访问哈希map中的值"><a href="#访问哈希map中的值" class="headerlink" title="访问哈希map中的值"></a>访问哈希map中的值</h4><p>可以通过 <code>get</code> 方法并提供对应的键来从哈希 map 中获取值</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> team_name = <span class="built_in">String</span>::from(<span class="string">&quot;Blue&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> score = scores.get(&amp;team_name);</span><br></pre></td></tr></table></figure>
+<p><code>score</code> 是与蓝队分数相关的值，应为 <code>Some(10)</code>。因为 <code>get</code> 返回 <code>Option&lt;V&gt;</code>，所以结果被装进 <code>Some</code>；如果某个键在哈希 map 中没有对应的值，<code>get</code> 会返回 <code>None</code>。这时就要用某种第六章提到的方法之一来处理 <code>Option</code>。</p>
+<p>可以使用与 vector 类似的方式来遍历哈希 map 中的每一个键值对，也就是 <code>for</code> 循环：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for (key, value) in &amp;scores &#123;</span><br><span class="line">    println!(&quot;&#123;&#125;: &#123;&#125;&quot;, key, value);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;打印出每一个键值对</span><br><span class="line">Yellow: 50</span><br><span class="line">Blue: 10</span><br></pre></td></tr></table></figure>
+<h4 id="更新哈希map"><a href="#更新哈希map" class="headerlink" title="更新哈希map"></a>更新哈希map</h4><ul>
+<li>覆盖值</li>
+</ul>
+<p>如果插入了一个键值对，接着用相同的键插入一个不同的值，与这个键相关联的旧值将被替换。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scores.insert(<span class="built_in">String</span>::from(<span class="string">&quot;Blue&quot;</span>), <span class="number">10</span>);</span><br><span class="line">scores.insert(<span class="built_in">String</span>::from(<span class="string">&quot;Blue&quot;</span>), <span class="number">25</span>);<span class="comment">//Blue对应的值更新为25</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>只在键没有对应值时插入</li>
+</ul>
+<p>用entry函数完成，entry返回值时一个枚举Entry，<code>Entry</code> 的 <code>or_insert</code> 方法在键对应的值存在时就返回这个值的可变引用，如果不存在则将参数作为新值插入并返回新值的可变引用。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scores.insert(<span class="built_in">String</span>::from(<span class="string">&quot;Blue&quot;</span>), <span class="number">10</span>);</span><br><span class="line">scores.entry(<span class="built_in">String</span>::from(<span class="string">&quot;Yellow&quot;</span>)).or_insert(<span class="number">50</span>); <span class="comment">//插入成功</span></span><br><span class="line">scores.entry(<span class="built_in">String</span>::from(<span class="string">&quot;Blue&quot;</span>)).or_insert(<span class="number">50</span>); <span class="comment">//插入失败</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>根据旧值更新一个值</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//统计单词出现的次数</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">use</span> std::collections::HashMap;</span><br><span class="line">    <span class="keyword">let</span> text = <span class="string">&quot;hello world wonderful world&quot;</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> map = HashMap::new();</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> text.split_whitespace() &#123;<span class="comment">//split_whitespace方法迭代 text 的值由空格分隔的子slice。</span></span><br><span class="line">        <span class="keyword">let</span> count = map.entry(word).or_insert(<span class="number">0</span>);<span class="comment">//or_insert 方法返回键值的一个可变引用（&amp;mut V）</span></span><br><span class="line">        *count += <span class="number">1</span>;<span class="comment">//可变引用存在count变量中</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">归档</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">rust</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://chengwenying.github.io/022/05/04/rust-7/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/03/hello-world/" class="archive-article-date">
-  	<time datetime="2021-02-03T03:30:19.231Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2022/05/04/rust-8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          rust-8
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/04/22/hyperledgerfabric-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hyperledger fabric部署</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/03/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88"><span class="toc-number">1.</span> <span class="toc-text">常见集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vector"><span class="toc-number">2.</span> <span class="toc-text">Vector</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0vector"><span class="toc-number">2.1.</span> <span class="toc-text">更新vector</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96vector%E5%85%83%E7%B4%A0"><span class="toc-number">2.2.</span> <span class="toc-text">获取vector元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%8D%E5%8E%86vector%E5%85%83%E7%B4%A0"><span class="toc-number">2.3.</span> <span class="toc-text">遍历vector元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vector%E7%94%A8%E6%9E%9A%E4%B8%BE%E5%8F%AF%E4%BB%A5%E5%AD%98%E5%82%A8%E5%A4%9A%E7%A7%8D%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.4.</span> <span class="toc-text">vector用枚举可以存储多种类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">String类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">3.1.</span> <span class="toc-text">新建字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">3.2.</span> <span class="toc-text">更新字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">3.3.</span> <span class="toc-text">索引字符串</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8Cmap"><span class="toc-number">4.</span> <span class="toc-text">哈希map</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%93%88%E5%B8%8Cmap"><span class="toc-number">4.1.</span> <span class="toc-text">新建哈希map</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%88%E5%B8%8Cmap%E6%89%80%E6%9C%89%E6%9D%83"><span class="toc-number">4.2.</span> <span class="toc-text">哈希map所有权</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E5%93%88%E5%B8%8Cmap%E4%B8%AD%E7%9A%84%E5%80%BC"><span class="toc-number">4.3.</span> <span class="toc-text">访问哈希map中的值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%93%88%E5%B8%8Cmap"><span class="toc-number">4.4.</span> <span class="toc-text">更新哈希map</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -266,8 +431,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>hyperledger fabric部署 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2021/index.html">
+  <meta name="description" content="hyperledger fabric部署完整步骤系统环境ubuntu 21.04">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hyperledger fabric部署">
+<meta property="og:url" content="http://example.com/2022/04/22/hyperledgerfabric-1/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="hyperledger fabric部署完整步骤系统环境ubuntu 21.04">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/04/22/images/hyperledgerfabric-1/image-20220425221925431.png">
+<meta property="og:image" content="http://example.com/2022/04/22/images/hyperledgerfabric-1/image-20220425221459556.png">
+<meta property="article:published_time" content="2022-04-22T13:24:41.000Z">
+<meta property="article:modified_time" content="2022-04-25T14:20:34.522Z">
 <meta property="article:author" content="chengwenying">
+<meta property="article:tag" content="fabric">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/04/22/images/hyperledgerfabric-1/image-20220425221925431.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -153,97 +161,250 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-hyperledgerfabric-1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/04/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Ayilia%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-02-04T06:36:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/04/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Ayilia%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/">hexo博客搭建</a>
+    <h1 class="article-title" itemprop="name">
+      hyperledger fabric部署
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/04/22/hyperledgerfabric-1/" class="archive-article-date">
+  	<time datetime="2022-04-22T13:24:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="hyperledger-fabric部署完整步骤"><a href="#hyperledger-fabric部署完整步骤" class="headerlink" title="hyperledger fabric部署完整步骤"></a>hyperledger fabric部署完整步骤</h2><p>系统环境ubuntu 21.04</p>
+<a id="more"></a>
+
+<p>ubuntu安装教程参考</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34160841/article/details/104862884">https://blog.csdn.net/qq_34160841/article/details/104862884</a></p>
+<p>vmtools安装教程参考</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Asgard-l/p/10301631.html">https://www.cnblogs.com/Asgard-l/p/10301631.html</a></p>
+<p>做好准备工作</p>
+<h4 id="1更换apt源"><a href="#1更换apt源" class="headerlink" title="1更换apt源"></a>1更换apt源</h4><p>1.打开终端，进入/etc/apt目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/apt</span><br></pre></td></tr></table></figure>
+<p>2.备份 sources.list文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup</span><br></pre></td></tr></table></figure>
+<p>3.打开sources.list文件修改添加阿里云镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apt/sources.list  </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">  阿里源</span></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+<p>4.对apt-get进行更新</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+<h4 id="2配置环境"><a href="#2配置环境" class="headerlink" title="2配置环境"></a>2配置环境</h4><p>需要准备的环境有：<code>go</code> <code>docker</code> <code>docker-compose</code> <code>nodejs</code></p>
+<p>1.安装go</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">进入根目录</span></span><br><span class="line">cd ~</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载压缩包</span></span><br><span class="line">wget https://studygolang.com/dl/golang/go1.13.4.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">对压缩包解压</span></span><br><span class="line">tar -xzf go1.13.4.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">删除压缩包</span></span><br><span class="line">rm -rf go1.13.4.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">把根目录下的 go 文件夹移动到 /usr/<span class="built_in">local</span>/ 目录下</span></span><br><span class="line">mv go/ /usr/local/</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">修改环境变量</span></span><br><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">GOROOT 路径是软件安装路径</span></span><br><span class="line">export GOROOT=/usr/local/go</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">GOPATH 路径是平时我们的工作路径，go项目放置在这个目录下</span></span><br><span class="line">export GOPATH=$HOME/go</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">添加到环境变量</span></span><br><span class="line">export PATH=$PATH:/usr/local/go/bin</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">退出 bashrc 文件然后更新环境变量</span></span><br><span class="line">source ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">使用 go version 可以查看go是否安装成功</span></span><br><span class="line">go version</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">go env 可以查看 go 的环境变量是否设置成功</span></span><br><span class="line">go env</span><br></pre></td></tr></table></figure>
+<p>2.安装docker</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新 apt 包索引</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载安装工具</span></span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates software-properties-common</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加官方密钥</span></span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 加入 apt 仓库</span></span><br><span class="line">sudo add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新 apt 包索引</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装 Docker-CE</span></span><br><span class="line">sudo apt-get install docker-ce</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 验证版本</span></span><br><span class="line">docker version</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">将非root组加入 docker 组</span></span><br><span class="line">sudo groupadd docker</span><br><span class="line">sudo usermod -aG docker cigod</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加阿里云 Docker 镜像</span></span><br><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo vi /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">将下面内容添加到该文件中</span></span><br><span class="line">&#123;</span><br><span class="line"> &quot;registry-mirrors&quot;: [&quot;https://obou6wyb.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启 Docker</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+<p>3.安装docker-compose</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 下载 docker-compose</span><br><span class="line">sudo curl -L https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.26.0&#x2F;docker-compose-$(uname -s)-$(uname -m) -o &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br><span class="line"></span><br><span class="line"># 允许其他用户执行compose相关命令</span><br><span class="line">sudo chmod +x &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br><span class="line"></span><br><span class="line"># 验证版本</span><br><span class="line">docker-compose -version</span><br></pre></td></tr></table></figure>
+<p>4.安装nodejs</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">请尽量避免在 Ubuntu 上使用 apt-get 来安装 node.js, 如果已经这么做了，请手动移除</span></span><br><span class="line">sudo apt-get purge nodejs &amp;&amp; sudo apt-get autoremove &amp;&amp; sudo apt-get autoclean</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">使用 nvm 来安装</span></span><br><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">查看 nvm 是否安装成功</span></span><br><span class="line">nvm --version</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">查看 nodejs 可以安装的所有版本</span></span><br><span class="line">nvm ls-remote     </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">目前 nodejs 最新的长期支持版为 12.18.2</span></span><br><span class="line">nvm install 12.18.2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">查看 nodejs 版本</span></span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
+<h4 id="3获取bootstrap-sh文件"><a href="#3获取bootstrap-sh文件" class="headerlink" title="3获取bootstrap.sh文件"></a>3获取bootstrap.sh文件</h4><p>在网站<a target="_blank" rel="noopener" href="https://www.ipaddress.com/%EF%BC%8C%E6%90%9C%E7%B4%A2%E4%B8%80%E4%B8%8B%E5%9F%9F%E5%90%8D%EF%BC%8C%E5%BE%97%E5%88%B0ip%E5%9C%B0%E5%9D%80">https://www.ipaddress.com/，搜索一下域名，得到ip地址</a></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">github.global.ssl.fastly.net</span><br><span class="line">github.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#打开 hosts 文件</span><br><span class="line">vi /etc/hosts</span><br><span class="line"></span><br><span class="line">#修改 hosts 文件，按照查询到的ip在文件末尾添加以下内容</span><br><span class="line">199.232.69.194 github.global-ssl.fastly.net</span><br><span class="line">140.82.113.3 github.com</span><br><span class="line"></span><br><span class="line">#退出文件，然后更新 DNS             </span><br><span class="line">sudo /etc/init.d/networking restart</span><br><span class="line"></span><br><span class="line">#创建目录</span><br><span class="line">mkdir -p /root/go/src/github.com/hyperledger</span><br><span class="line"></span><br><span class="line">#进入该目录</span><br><span class="line">cd /root//go/src/github.com/hyperledger</span><br><span class="line"></span><br><span class="line">#下载fabric，使用这个地址下载速度要快很多，我在虚拟机上能达到 2M/S，因为这个fabric的包挺大，</span><br><span class="line">所以需要等一段时间</span><br><span class="line">git clone https://github.com.cnpmjs.org/hyperledger/fabric.git</span><br><span class="line">#若上述方式显示错误无法连接到github，可以使用下面这个命令替代</span><br><span class="line">git clone https://gitee.com/hyperledger/fabric.git</span><br><span class="line"></span><br><span class="line">#下载完 fabric 后，bootstrap.sh 就在 fabric 目录下的 scripts 文件夹中</span><br></pre></td></tr></table></figure>
+<h4 id="4-运行bootstrap-sh文件"><a href="#4-运行bootstrap-sh文件" class="headerlink" title="4.运行bootstrap.sh文件"></a>4.运行bootstrap.sh文件</h4><p>因为这个文件中需要下载一些二进制的文件，但是这些文件又存放在国外的网站上，所以下载速度非常慢，所以不能通过直接运行 <a href="https://link.zhihu.com/?target=http://bootstrap.sh/">bootstrap.sh</a> 文件来安装 fabric 所需的工具和镜像。通过查看该文件发现该文件主要做了三件事，1.下载 fabric-samples 到 fabric 目录下，2.下载相关的二进制文件，3.下载相关的 docker 镜像，所以我们可以手动来完成这三个步骤</p>
+<p>1.下载 fabric-samples 到 fabric 目录下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#进入该目录</span><br><span class="line">cd /root//go/src/github.com/hyperledger/fabric</span><br><span class="line"></span><br><span class="line">#下载 fabric-samples</span><br><span class="line">git clone https://github.com.cnpmjs.org/hyperledger/fabric-samples.git</span><br><span class="line">#跟上面一样，若出现访问失败，使用下面的链接，如果担心出错可以先尝试浏览器访问看看是否一致</span><br><span class="line">git clone https://gitee.com/hyperledger/fabric-samples.git</span><br></pre></td></tr></table></figure>
+<p>2.下载相关二进制文件，首先打开bootstrap.sh查看两个二进制文件的版本</p>
+<p><img src="../images/hyperledgerfabric-1/image-20220425221925431.png" alt="image-20220425221925431"></p>
+<p>两个二进制文件的下载地址为（注意：根据自己查看bootstrap.sh文件得到相应版本号，从而修改地址其中的版本号）：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/hyperledger/fabric/releases/download/v2.2.0/hyperledger-fabric-linux-amd64-2.4.2.tar.gz</span><br><span class="line"></span><br><span class="line">https://github.com/hyperledger/fabric-ca/releases/download/v1.4.7/hyperledger-fabric-ca-linux-amd64-1.5.2.tar.gz</span><br></pre></td></tr></table></figure>
+<p>然后通过把这两个文件放到 /root/go/src/github.com/hyperledger/fabric/fabric-samples/ 这个目录下面，然后解压</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xzf hyperledger-fabric-linux-amd64-2.2.0.tar.gz</span><br><span class="line">tar -xzf hyperledger-fabric-ca-linux-amd64-1.4.7.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压完成之后会在这个目录下面生成一个 /bin 文件夹，bin目录下面存放的都是一些生成fabric网络所需的工具，到目前为止，bootstrap 文件中的第二个步骤已经弄完了，下面进行第三个步骤</p>
+<p>3.下载docker镜像</p>
+<p>回到放置bootstrap.sh文件的目录下面，然后执行下面的命令</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#该命令会下载所需的 docker 镜像</span><br><span class="line">./bootstrap.sh -s -b</span><br></pre></td></tr></table></figure>
+<p>下载完成后，会看到终端输出已安装的 docker 镜像</p>
+<p>到目前为止，运行 fabric 网络所需的工具都已安装，下面进行第一次网络的运行。</p>
+<p>5.运行fabric网络</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#进入下面这个目录</span><br><span class="line">cd /root/go/src/github.com/hyperledger/fabric/fabric-samples/test-network</span><br><span class="line"></span><br><span class="line">#使用该命令启动网络</span><br><span class="line">./network.sh up</span><br></pre></td></tr></table></figure>
+<p>启动成功后，会输出正在运行的三个 docker 容器</p>
+<p><img src="../images/hyperledgerfabric-1/image-20220425221459556.png" alt="image-20220425221459556"></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#网络运行完成后，使用如下命令关闭网络</span><br><span class="line">./network.sh down</span><br></pre></td></tr></table></figure>
+
+
+<p>参考知乎文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/158381955">https://zhuanlan.zhihu.com/p/158381955</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">归档</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">fabric</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://chengwenying.github.io/022/04/22/hyperledgerfabric-1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/03/hello-world/" class="archive-article-date">
-  	<time datetime="2021-02-03T03:30:19.231Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2022/05/04/rust-7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          rust-7
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/04/22/rust-6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">rust_6</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/03/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hyperledger-fabric%E9%83%A8%E7%BD%B2%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">hyperledger fabric部署完整步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E6%9B%B4%E6%8D%A2apt%E6%BA%90"><span class="toc-number">1.0.1.</span> <span class="toc-text">1更换apt源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="toc-number">1.0.2.</span> <span class="toc-text">2配置环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E8%8E%B7%E5%8F%96bootstrap-sh%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.3.</span> <span class="toc-text">3获取bootstrap.sh文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%BF%90%E8%A1%8Cbootstrap-sh%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.4.</span> <span class="toc-text">4.运行bootstrap.sh文件</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -266,8 +427,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
